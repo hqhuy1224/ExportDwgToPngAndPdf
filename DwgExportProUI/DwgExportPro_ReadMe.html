@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DwgExportPro</title>
+</head>
+
+<body>
+    <div>
+        <div>
+            <h1>DwgExportPro</h1>
+            <p>DwgExportPro - batch DWG plotting / export tool</p>
+            <h3>About this tool</h3>
+            <p>DwgExportPro is a batch-processing utility for AutoCAD that opens a list of drawing files and exports
+                each one to PDF or PNG automatically, with per-file layout selection, logging, reusable project files
+                and automatic recovery/restart if AutoCAD becomes unresponsive.</p>
+            <p>This tool is built on top of the original ScriptPro batch-processing engine released by Autodesk
+                Developer Network, rewritten and extended with a dedicated PDF/PNG export workflow, per-drawing layout
+                picking, and a more robust AutoCAD COM automation layer.</p>
+
+            <h3>System Requirements</h3>
+            <p>Tested with AutoCAD 2021 onwards (64-bit). The application will use the version of AutoCAD most recently
+                used on the system, unless a specific AutoCAD executable path is set in Options.</p>
+            <p>Requires .NET Framework (see project target) and a licensed, installed copy of AutoCAD on the machine
+                running the tool.</p>
+
+            <h2>Installation</h2>
+            <hr />
+            <p>Copy the contents of the build output folder (the main application file, <code>DwgExportPro.exe</code>,
+                and its supporting DLLs, e.g. <code>DrawingListUC.dll</code>) to the same location on your local system.
+            </p>
+
+            <h2>Usage</h2>
+            <hr />
+            <p>DwgExportPro is a batch-processing tool that opens each drawing in a list and exports it to PDF or PNG.
+                Before you begin, decide which drawings you want to process and which layout (or Model) should be
+                plotted for each.</p>
+            <p>In the DwgExportPro Project Editor, you add the drawings, choose a layout per drawing, choose the export
+                format (PDF or PNG), and save this as a DwgExportPro project file (<code>.bpl</code>).</p>
+            <p>While running a project, DwgExportPro opens each drawing in sequence, plots it to the selected format,
+                and closes it before moving to the next file.</p>
+
+            <p>Starting DwgExportPro</p>
+            <p>DwgExportPro is a stand-alone application that runs independently of AutoCAD. Create a shortcut to
+                <code>DwgExportPro.exe</code> on your desktop, or run the executable directly from Windows Explorer or a
+                command-prompt window.</p>
+            <p>DwgExportPro has a ribbon UI with the following groups: List, Drawing Files, Run, Stop, Options and
+                Help.</p>
+
+            <h4>List:</h4>
+            <ul>
+                <li><p>New - Creates a new DwgExportPro project.</p></li>
+                <li><p>Load - Loads an existing DwgExportPro project.</p></li>
+                <li><p>Save - Saves the current DwgExportPro project.</p></li>
+                <li><p>Save As - Saves the current project to another location.</p></li>
+                <li>
+                    <p>Load SCP Project</p>
+                    <ul>
+                        <li>Reads a legacy ScriptPro (.scp) project file, for migration purposes.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Drawing Files:</h4>
+            <p>Add - Adds drawing files (DWG &amp; DXF) to the current project.
+               Add From Folder - Adds drawing files (DWG &amp; DXF) from a selected folder.
+               Remove - Removes the selected files from the current project.
+               Check/Uncheck - Allows drawing files to be skipped during processing.</p>
+
+            <h4>Run:</h4>
+            <ul>
+                <li>Checked - Exports all the checked drawing files in the current project.</li>
+                <li>Selected - Exports all the selected drawing files in the current project.</li>
+                <li>Failed - Re-runs export on all drawing files which previously failed.</li>
+            </ul>
+
+            <h4>Stop:</h4>
+            <ul>
+                <li><p>Stop - Stops the current batch export.</p></li>
+                <li>
+                    <p>Options:</p>
+                    <ul>
+                        <li>Settings - Shows the Options dialog, which lets you set the time-out period, log file path
+                            and initial startup script.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Help:</h4>
+            <ul>
+                <li>Help - Shows this ReadMe file, if placed in the same folder as <code>DwgExportPro.exe</code> or the
+                    parent folder.</li>
+            </ul>
+
+            <p>The Options dialog contains a number of project-related settings:</p>
+
+            <h4>Process timeout per drawing in seconds</h4>
+            <p>How long AutoCAD can be inactive before DwgExportPro aborts processing on the current drawing and moves
+                on to the next one. Increase this for very large drawings.</p>
+
+            <h4>Restart AutoCAD after _ drawings</h4>
+            <p>Number of drawings to process before restarting AutoCAD, to reset memory usage during long batch runs.
+            </p>
+
+            <h4>AutoCAD startup script file</h4>
+            <p>A script executed once when a new AutoCAD session starts (e.g. to load required LISP/.NET
+                applications).</p>
+
+            <h4>Process log folder</h4>
+            <p>Location where logs are created, named <code>DEPlog_date_hour_min_sec.log</code> plus a matching
+                <code>DEPlog_Detail_...</code> file containing AutoCAD's command-line output for each drawing.</p>
+
+            <h4>Create image before closing the drawing file</h4>
+            <p>Captures a screenshot of the AutoCAD window, for all processed drawings or only failed ones.</p>
+
+            <h4>Select DWG/DXF files in sub directories</h4>
+            <p>Makes Add From Folder search sub-folders when populating the drawing list.</p>
+
+            <h4>Run the tool in diagnostic mode</h4>
+            <p>Pauses just before closing each drawing so you can verify its state. No timeout applies in this mode.
+            </p>
+
+            <h4>Delay during process (Seconds)</h4>
+            <p>Slows down the tool, giving AutoCAD more time to respond to commands.</p>
+
+            <h4>AutoCAD exe path to use</h4>
+            <p>Selects a specific AutoCAD version/variant to use. If empty, the most recently used AutoCAD on the
+                system is used.</p>
+
+            <h4>Command Line Access</h4>
+            <p>To run a DwgExportPro project from a batch file:</p>
+            <p><code>DwgExportPro.exe &lt;project name&gt; run</code></p>
+            <p>Example: <code>C:\DwgExportPro\DwgExportPro.exe C:\TestProject.bpl run</code></p>
+            <p>Add <code>exit</code> at the end to close DwgExportPro silently after processing:</p>
+            <p><code>C:\DwgExportPro\DwgExportPro.exe C:\TestProject.bpl run exit</code></p>
+
+            <h2>Uninstallation</h2>
+            <p>From Control Panel, find <code>DwgExportPro</code> and uninstall, or simply delete the installation
+                folder if it was installed as a portable app.</p>
+
+            <h2>Credits</h2>
+            <p>DwgExportPro is based on ScriptPro 2.0, originally released by Autodesk Developer Network (written by
+                Virupaksha Aithal, with input from Kean Walmsley). The original batch-processing engine, scripting
+                model and ribbon UI concept come from that project; the PDF/PNG export pipeline, layout picker, and
+                AutoCAD COM reliability fixes in this build are custom additions.</p>
+
+            <h2>Release History</h2>
+            <pre>1.0  Rebranded from ScriptPro 2.0 as DwgExportPro.
+     Added per-drawing layout selection.
+     Added direct PDF / PNG batch export (replacing generic .scr script workflow for this use case).
+     Fixed COM "application is busy" errors via STA thread + Message Filter.
+     Fixed PNG/PDF plot area not honoring computed Window/Extents.
+     Export status now verified against actual output file instead of assumed success.</pre>
+
+        </div>
+    </div>
+</body>
+</html>

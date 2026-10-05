@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DwgExportProUI": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\DwgExportProUIPro"
+    }
+  }
+}
